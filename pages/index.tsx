@@ -2,10 +2,18 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export default function Home() {
-  // const session = useSession();
-  // console.log(session);
+  const { data: session, status } = useSession();
+  console.log(session);
+  const router = useRouter();
+
+  if (status == "authenticated") {
+    router.push("/attic");
+    return;
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -15,13 +23,18 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Welcome to the Attic!</h1>
+        {status == "unauthenticated" && (
+          <>
+            <h1 className={styles.title}>Welcome to the Attic!</h1>
 
-        <p className={styles.description}>Please log in.</p>
+            <p className={styles.description}>Please log in.</p>
 
-        <button className={styles.description} onClick={() => signIn()}>
-          Sign in
-        </button>
+            <button className={styles.description} onClick={() => signIn()}>
+              Sign in
+            </button>
+          </>
+        )}
+        {status == "loading" && <h1 className={styles.title}>Loading...</h1>}
       </main>
 
       <footer className={styles.footer}>
