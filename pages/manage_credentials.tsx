@@ -7,7 +7,9 @@ const handleSubmit = (e: React.FormEvent): void => {
     accessKeyId: { value: string };
     secretAccessKey: { value: string };
   };
-  console.log(target);
+  const accessKeyID = target.accessKeyId;
+  const secretKey = target.secretAccessKey;
+  
 };
 
 export default function Upload() {
@@ -16,13 +18,19 @@ export default function Upload() {
       <h1 className={styles.title}>Manage your credentials!</h1>
 
       <form onSubmit={handleSubmit}>
-        <input type="text" id="access-key-id" name="accessKeyId"></input>
-        <input
-          type="password"
-          id="secret-access-key"
-          name="secretAccessKey"
-        ></input>
-        <input type="submit"></input>
+        <label>
+          Your Access Key ID
+          <input type="text" id="access-key-id" name="accessKeyId"></input>
+        </label>
+        <label>
+          Your Secret Access Key
+          <input
+            type="password"
+            id="secret-access-key"
+            name="secretAccessKey"
+          ></input>
+        </label>
+        <input type="submit" value="submit"></input>
       </form>
     </main>
   );
