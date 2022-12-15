@@ -4,7 +4,7 @@ import styles from "../styles/Home.module.css";
 import { getSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
 
-const handleSubmit = (e: React.FormEvent): void => {
+const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
   const target = e.target as typeof e.target & {
     accessKeyId: { value: string };
@@ -12,6 +12,23 @@ const handleSubmit = (e: React.FormEvent): void => {
   };
   const accessKeyID = target.accessKeyId;
   const secretKey = target.secretAccessKey;
+  await fetch("/api/credentials", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+    body: JSON.stringify({
+      accessKey: accessKeyID.value,
+      secretAccessKey: secretKey.value,
+    }),
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      console.log(json);
+    })
+    .catch((err) => console.error(err));
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

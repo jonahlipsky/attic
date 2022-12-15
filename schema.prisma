@@ -49,8 +49,8 @@ model User {
 
 model AccessKeyPair {
   id            String @id @default(cuid())
-  accessKeyUuid String @default(cuid())
-  secretKeyUuid String @default(cuid())
+  accessKeyUuid String @default(cuid()) @unique
+  secretKeyUuid String @default(cuid()) @unique
   userId        String @unique
   user          User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
