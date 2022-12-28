@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "../../styles/Home.module.css";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { trpc } from "../utils/trpc";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -12,6 +13,12 @@ export default function Home() {
     router.push("/attic");
     return;
   }
+
+  // const hello = trpc.hello.useQuery({ text: "client" });
+  // if (hello.data) {
+  //   console.log(hello.data.greeting);
+  // }
+  // continue learning at https://trpc.io/docs/nextjs
 
   return (
     <div className={styles.container}>
