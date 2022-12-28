@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../lib/prismadb";
+import prisma from "../../../prisma/prismadb";
 import { ListBucketsCommand, S3Client } from "@aws-sdk/client-s3";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
