@@ -7,7 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (req.method == "POST") {
     const sessionToken = req.cookies["next-auth.session-token"];
-    console.log(sessionToken);
+    // console.log(sessionToken);
     const session = await prisma.session.findUnique({
       where: { sessionToken: sessionToken },
     });

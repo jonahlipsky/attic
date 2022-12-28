@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 
 import { getSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
@@ -26,7 +26,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   })
     .then((res) => res.json())
     .then((json) => {
-      console.log(json);
+      // console.log('json');
     })
     .catch((err) => console.error(err));
 };

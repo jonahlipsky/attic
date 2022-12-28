@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 
 export default function Home() {
   const { data: session, status } = useSession();
-  console.log(session);
   const router = useRouter();
 
   if (status == "authenticated") {
