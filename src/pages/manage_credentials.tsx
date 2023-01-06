@@ -3,6 +3,8 @@ import styles from "../../styles/Home.module.css";
 
 import { getSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
+import { trpc } from "../utils/trpc";
+
 
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();

@@ -1,11 +1,36 @@
 import { TRPCError, initTRPC } from "@trpc/server";
+import { Context } from "./context";
 
 // Avoid exporting the entire t-object
 // since it's not very descriptive.
 // For instance, the use of a t variable
 // is common in i18n libraries.
-const t = initTRPC.create();
+const t = initTRPC.context<Context>().create();
+
+const isAuthed = t.middleware(({ next, ctx }) => {
+  if (!ctx.session?.user?.email) {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+    });
+  }
+  return next({
+    ctx: {
+      // Infers the `session` as non-nullable
+      session: ctx.session,
+    },
+  });
+});
 
 // Base router and procedure helpers
+export const middleware = t.middleware;
 export const router = t.router;
-export const procedure = t.procedure;
+/**
+ * Unprotected procedure
+ */
+export const publicProcedure = t.procedure;
+/**
+ * Protected procedure
+ */
+export const protectedProcedure = t.procedure.use(isAuthed);
+
+// GOOD PLACE TO START NEXT TIME: https://trpc.io/docs/context

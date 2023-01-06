@@ -2,13 +2,16 @@ import { z } from "zod";
 import { procedure, router } from "../trpc";
 
 export const appRouter = router({
-  hello: procedure
+  create_credentials: procedure
     .input(
       z.object({
-        text: z.string(),
+        accessKey: z.string(),
+        secretAccessKey: z.string(),
       })
     )
-    .query(({ input }) => {
+    .mutation(({ input }) => {
+      
+
       return {
         greeting: `hello ${input.text}`,
       };
